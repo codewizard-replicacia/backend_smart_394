@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <property name="schemaName" value="smart"></property>
+    <property name="author=" value="db-designer"></property>
+    <changeSet id="v1-01-01" author="${author}">
+    
+ <createTable schemaName="${schemaName}" tableName="WaterPipe">
+	<column name="Id" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="Name" type="VARCHAR(250)" />
+    
+     <column name="Length" type="INTEGER" />
+    
+     <column name="StartingAt" type="VARCHAR(250)" />
+    
+     <column name="EndingAt" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Alert">
+	<column name="AId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="Name" type="VARCHAR(250)" />
+    
+     <column name="Symptom" type="VARCHAR(250)" />
+    
+     <column name="Date" type="TIMESTAMP" />
+    
+     <column name="Description" type="VARCHAR(250)" />
+    
+     <column name="Severity" type="VARCHAR(250)" />
+    
+     <column name="Status" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+	
+  <createTable schemaName="${schemaName}" tableName="WaterPipeAlerts">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Id" type="INTEGER" />
+	<column name="AId" type="BIGINT" />
+</createTable>
+
+ 
+	<addForeignKeyConstraint baseTableName="WaterPipeAlerts" baseTableSchemaName="${schemaName}"  baseColumnNames="Id" constraintName="Alert_Id_fk"
+	                                  referencedTableName="WaterPipe" referencedTableSchemaName="${schemaName}" referencedColumnNames="Id"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="WaterPipeAlerts" baseTableSchemaName="${schemaName}"  baseColumnNames="AId" constraintName="Alert_AId_fk"
+	                                  referencedTableName="Alert" referencedTableSchemaName="${schemaName}" referencedColumnNames="AId"/>
+ 
+	
+ 
+ 
+	    </changeSet>
+</databaseChangeLog>
